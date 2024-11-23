@@ -1,4 +1,28 @@
-/* globals.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* styles/globals.css */
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+select {
+  padding: 10px;
+  margin: 10px;
+}
+
+button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
