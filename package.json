@@ -1,0 +1,22 @@
+{
+  "name": "apprenticeship-match",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^13.1.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "supabase-js": "^2.0.0",
+    "tailwindcss": "^3.0.0",
+    "postcss": "^8.0.0",
+    "autoprefixer": "^10.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.4.0"
+  }
+}
