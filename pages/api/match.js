@@ -1,15 +1,39 @@
 import supabase from '../../lib/supabase';
 
 export default async function handler(req, res) {
-  const { selectedCourses, selectedJob } = req.body;
+  if (req.method === 'POST') {
+    const { selectedCourses, selectedJob } = req.body;
 
-  // Example: fetch data from Supabase based on the selected values
-  const { data: results, error } = await supabase
-    .from('job_skills')
-    .select('*')
-    .in('course_id', selectedCourses);  // Modify based on your actual schema
+    let matches = [];
 
-  if (error) return res.status(500).json({ error: error.message });
+    if (selectedCourses.length > 0) {
+      // Match A Levels to Apprenticeships
+      const { data: jobSkills, error: jobSkillsError } = await supabase
+        .from('apprenticeship_skills')
+        .select('apprenticeship_standard_id, skill_id')
+        .in('apprenticeship_standard_id', selectedCourses);
 
-  res.status(200).json(results);
+      if (jobSkillsError) {
+        return res.status(500).json({ error: jobSkillsError.message });
+      }
+
+      matches = jobSkills; // Match logic here
+    }
+
+    if (selectedJob) {
+      // Match Apprenticeship to A Levels
+      const { data: courseSkills, error: courseSkillsError } = await supabase
+        .from('alevel_skills')
+        .select('alevel_id, skill_id')
+        .eq('apprenticeship_standard_id', selectedJob);
+
+      if (courseSkillsError) {
+        return res.status(500).json({ error: courseSkillsError.message });
+      }
+
+      matches = courseSkills; // Match logic here
+    }
+
+    res.status(200).json(matches);
+  }
 }
